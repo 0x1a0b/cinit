@@ -6,7 +6,7 @@ SRC=main.go \
 all: cinit sleeper
 
 cinit: $(SRC)
-	CGO_ENABLED=0 go build .
+	go build .
 
 sleeper: t/sleeper.go
 	go build t/sleeper.go
