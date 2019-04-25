@@ -1,13 +1,11 @@
 
 
-
 SRC=main.go \
     process.go
 
+all: cinit sleeper
 
-all: container_init sleeper
-
-container_init: $(SRC)
+cinit: $(SRC)
 	CGO_ENABLED=0 go build .
 
 sleeper: t/sleeper.go
@@ -15,10 +13,10 @@ sleeper: t/sleeper.go
 
 
 .PHONY: test
-test: sleeper container_init
-	./container_init -- ./sleeper 1 -- ./sleeper 5
+test: sleeper cinit
+	./cinit -- ./sleeper 1 -- ./sleeper 5
 
 
 .PHONY: clean
 clean:
-	-rm container_init sleeper
+	-rm cinit sleeper
